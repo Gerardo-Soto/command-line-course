@@ -1,0 +1,446 @@
+Mis_Apuntes_Curso_De_Platzi_Terminal
+
+(guardado en github: command-line-course)
+
+	uptime
+
+	-Actualización:
+
+		1.-	sudo apt-get update
+		2.- sudo apt-get dist-upgrade
+		3.- sudo apt-get upgrade		(opcional)
+
+	-Shortcut de la terminal:
+
+		[Ctrl] + w : elimina la palabra anterior
+		[Ctrl] + u : elimina toda la entrada
+		[Ctrl] + e : ir al final
+		[Ctrl] + a : ir al inicio
+		[Ctrl] + r : buscar un comando en el historial
+		[Ctrl] + o : Enter (Revisar)
+		[Ctrl] + j : Enter
+		[Ctrl] + p : [flecha arriva]
+		[Ctrl] + l : clean screen
+		[Ctrl] + k : quita lo que esta adelande del cursor.
+		[Ctrl] + h : eliminar un caracter anterior.
+		[Ctrl] + f : [flecha derecha]
+		[Ctrl] + d : eliminar el caracter siguiente = [Delete].
+		[Ctrl] + n : [flecha abajo]
+		
+
+	-Gestor de procesos:
+
+		top
+
+			top –d 5 	(Donde 5 es el número de segundos a transcurrir entre cada muestreo)
+
+			top –o %CPU 	(Donde %CPU es el valor por el que vamos a ordenar los procesos )
+
+			top –u usuario 	(Donde usuario es el usuario del cual queremos mostrar los procesos)
+
+			top -b -> Batch mode 	ideal para mandar resultados desde top a otros programas
+
+				k -> Si se quiere matar el proceso, luego debemos ingresar el numero de su PID.
+				r -> Cambia la prioridad del proceso
+				O (upercase) -> Muestra las posibles columnas que podemos agregar a la lista de procesos
+				1 -> Muestra la información de todos los cores
+				z o b -> Agregan colores a la interfaz
+				c -> Muestra el path absoluto del binario que se esta ejecutando.
+				n -> nos permite reducir la lista a “n” procesos.
+				N (upercase) -> Ordena los procesos por PID
+				A (upercase) -> Ordena los procesos por aparicion, primero se encuentran los mas nuevos
+				P (upercase) -> Ordena los procesos por uso de CPU, esta opcion es la default
+				M (upercase) -> Ordena los procesos por memoria residente
+				T (upercase) -> Ordena los procesos por tiempo.
+				W (upercase) -> Guarda la configuracion que hicimos
+				q -> Salir de Top
+		htop
+
+	-Memoria RAM y SWAP
+
+		>free -h
+		>vmstat -s -S M
+		>cat /proc/meminfo
+
+	-Historial:
+
+		~/.bash_history 	:directorio del historial de cada usuario
+
+		!cadena 	:donde "cadena" es el inicio de la linea que queremos ejecutar
+
+		export HISTTIMEFORMAT='%F %T : ' 	: colocar la hora y fecha de ejecucion de cada comando de marera parcial
+
+		echo "export HISTTIMEFORMAT='%F %T : '" >> $HOME/.bashrc 	:colocar la hora y fecha de ejecucion de cada comando de manera permanente
+
+		HISTSIZE 	:is the number of lines or commands that are stored in memory in a history list while your bash session is ongoing.
+
+			Change value:
+
+
+				> export HISTSIZE=n
+				> $HISTSIZE
+				> n
+
+		HISTFILESIZE 	:is the number of lines or commands that (a) are allowed in the history file at startup time of a session, and (b) are stored in the history file at the end of your bash session for use in future sessions.
+
+			Change value
+
+				> export HISTSIZE=n
+				> $HISTSIZE
+				> n
+
+		Aún así history, por defecto, tiene algunas limitaciones, a 500 o 1000 entradas por usuario, y otra problema es que si tenemos múltiples ventanas de consola abiertas sólo guardará información de la primera. Los parámetros del comando están ubicados en el fichero .bashrc, que se pueden modificar de manera fácil, veamos un ejemplo.
+
+			Los parámetros:
+
+		# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+
+			HISTSIZE=1000
+			HISTFILESIZE=2000
+
+		cat .bash_history	:Por orden de uso, vemos los comandos utilizados recientemente en el sistema operativo. Si listamos el fichero .bash_history con el comando cat, veremos idéntico resultado, ya que es en éste fichero donde se guarda dicho historial.
+
+		shopt -s histappend 	:De ésta manera se guardará el historial de todas nuestras terminales, es decir, se irán anexando en vez de sobrescribirse.
+
+		history -n, muestra el número de líneas.
+		history -a, añade los comandos de la sesión actual al archivo de historial.
+		history -c, borra todo el historial.
+		history – d 500, borra el comando número quinientos del historial.
+
+	-Mostrar la ruta actual:
+		pwd
+
+	-Mostrar informacion del directorio:
+
+		ls 	:Lista el contenido de los directorios (por defecto ordena la salida alfabéticamente).
+			Alguna de sus opciones son:
+
+		-a 	:todos los archivos, incluso los que comienzan con punto (.).
+		
+		-A 	:Lista todos los ficheros en los directorios, excepto los que comienzan con punto . (.) y los que comienzan con doble punto (..).
+
+		-F 	:indica tipo: / directorio, * ejecutable, @ enlace simbólico.
+
+		-h 	:indicará el tamaño en KB, MB, etc.
+		
+		-l 	:listado en formato largo (o detallado).
+		
+		-S 	:clasifica los contenidos de los directorios por tamaños, con los ficheros más grandes en primer lugar.
+
+		-r 	:invierte el orden de la salida.	
+
+		-R 	:Lista recursivamente los subdirectorios encontrados.
+
+		-t 	:ordenar por fecha de última modificación.
+
+		-u 	:ordenar por fecha de último acceso.
+
+		-x 	:presenta los ficheros por columnas.
+
+		-i 	:precede la salida con el número de i-node
+
+			ejemplos:
+
+		ls -lt	:muestra los archivos del mas actual al mas antuguo
+
+		ls -ltr	:muetsra los archivos del mas antuguo al mas actual
+
+		ls -lh	:muestra de forma mas legible el tamaño de los archivos
+
+		ls -lhS	:muestra de forma ordenada los archivos por su tamaño
+
+		ls -la 	:muestra los atributos de los archivos y los archivos ocultos
+
+	
+	-Tratamiento de archivos:
+
+		rm [file]	:elimina un archivo
+
+		rm -rf [dir]	:elimina un directorio recursivamente sin preguntar
+
+		mv [file] [dir]	:mueve file a dir
+
+		mv [file] [name]	:renommbre file a name
+
+		cd [dir]	:lleva el PROMPT a dir
+
+		touch [file]	:si file existe, modifica la hora de ultima modificacion al momento de la ejecucion del comando, si no existe, lo crea
+
+	-Navegacion entre directorios:
+
+		cd ~	: Sin importar donde nos encontremos, con esto nos regresamos al directorio Home.
+
+		cd - 	: Nos regresa al directorio anterior despues de cambiarnos a un nuevo directorio
+		
+		cd.. 	: Nos regresa a un directorio anterior
+
+		du -h -d 1	:Los directorios no tiene peso por sí mismo, por lo general, tienen la referencia a la suma de peso de todos los archivos contenidos por ellos. Para tener una mejor noción de cuánto pesa cada archivo y directorio.
+
+			h : human readble
+			-d / --max-depth=1 : imprime a partir de aquí, el peso de cada archivo o carpeta
+
+
+	-Creacion de directorios, mover, copiar y renombrar archivos:
+
+		mkdir “nombre” 	: Crea un directorio, usando como nombre la palabra que pongamos después de mkdir.
+
+		mv origen destino	: Mueve un archivo o directorio, dando el punto de origen y de destino, por ejemplo:
+
+			mv DSCF7496.jpg fotos/ 	:( Mueve el archivo DSCF7496.jpg a la carpera fotos/ )
+
+			Nota: No olvides el alcance que tenemos en los directorios. Por ejemplo, si estamos en fotos/ y queremos mover otra foto del directorio anterior:
+
+		mv ../DSCF7498.jpg ./ 	:( Mueve el archivo DSCF7498.jpg que está en la carpeta padre a esta carpeta hijo )
+
+			Además, de tener atajos para mover más archivos de rutas más específicas:
+
+		mv ~/Downloads/*jpg . 	:(Todos los archivos jpg en el directorio Downloads, muévelos al directorio donde me encuentro actualmente )
+
+		cp origen destino	: Copia un archivo, dando el punto de origen y de destino, por ejemplo:
+
+		cp ../foto.jpg . 	:( Copia el archivo foto.jpg de la carpeta padre a la ruta donde nos encontramos )
+
+			Para renombrar archivos, usamos el comando mv, pero no especificamos rutas:
+
+		mv foto.jpg imagen.jpg 	:(cambia el nombre del archivo foto.jpg a imagen.jpg)
+
+		touch nombredelarchivo	: Abre el archivo, pero no lo modifica. Importante para actualizar las fechas de modificación de archivos existentes.
+
+			Si el archivo no existe, lo crea, por ejemplo:
+
+		touch hola.txt 	: Crea un archivo hola.txt
+
+		cp -r  (origen) (destino) 	: para copiar la carpeta con todo su contenido.
+
+
+	-Eliminar directorios:
+
+		Nunca, de los nuncas uses rm -r / (Esto borrara todo en tu disco duro).
+
+			Cómo si usarlo bien:
+
+
+		rm nombredelarchivo 	: Elimina el archivo indicado después de rm
+		
+		rm NombreDelDirectorio/* 	: Elimina todos los archivos que se encuentren dentro del directorio mencionado.
+
+		rm -r NombreDelDirectorio	: Elimina el directorio mencionado, junto todos los archivos y más directorios que se encontrarán dentro de él.
+
+		-r 	:recursivo
+
+		-f 	:forzado
+
+		-v 	:verbose, (muestra el contenido)
+
+		-i 	:confirmacion
+
+	-Links (Referencias de archivos o directorios ) y eliminar elementos desde la terminal
+
+		ln -s 	:Se usa este comando teniendo en cuenta primero el archivo o la carpeta a la cuál queremos hacer referencia, seguido del simbolo que queremos asignarle:
+
+			ln -s flickr_photos-csv fotos.csv
+
+
+			!!!!!!!faltara informacionk... investigar
+
+
+
+
+	-Programas disponibles desde terminal: bc, md5, more, tail, cat, wc
+
+		bc	: Aplicación de calculadora desde terminal, podemos hacer cualquier operación aritmética.
+
+		open NombreDelArchivo 	: Dependiendo del tipo de archivo, la terminal va a elegir el programa por defecto recomendado para abrirlo, por ejemplo, si es una imagen, en Mac, lo abrirá en preview.
+
+		open -a NombreDelPrograma nombredelarchivo 	: Abrimos el archivo elegido con el programa que queremos. 
+			Ejemplo:
+
+			open -a atom index.html
+
+		md5 NombreDelArchivo 	: Nos permite crear una especie de huella digital de un archivo, usando el algoritmo md5. De hecho, no existe algún otro directorio o archivo en el mundo con el mismo md5
+
+			Ejemplo:
+			md5 calculos
+
+		more NombreDelArchivo 	: Esto es exclusivo para archivos de texto, nos muestra todo el contenido de un documento sin abrir un editor de texto. Si es mucho el texto, crea páginas totalmente navegables.
+
+		tail NombreDelArchivo 	: Esto es exclusivo para archivos de texto, muestra las últimas 10 líneas de un archivo de texto. Puedes modificar el flag para aumentar el número de lineas
+
+			Ejemplo:
+			tail -20 NombreDelArchivo
+
+		tail -f NombreDelArchivo 	: -f significa forever, quiere decir que la terminal se va a quedar escuchando el archivo hasta que suceda un cambio, cuando se haga un cambio en el archivo, va a imprimir como siempre los últimos 10 resultados.
+
+			Puedes salirte de cualquier programa en ejecución usando ctrl + c
+
+		cat NombreDelArchivo 	: Imprime todo el archivo, sin excepción, sin paginar. Puedes de hecho, abrir cualquier tipo de archivo binario (no solo texto)
+
+			Por cierto, dependiendo el tipo de archivo, es recomendado usar un comando u otro:
+
+				open: 	:recomendado para archivos binarios como imágenes, videos, pdf. etc.
+				more, cat, tail 	: para archivos con texto de salida utf-8 o similares
+
+
+		wc NombreDelCurso 	: Es un contador de líneas, palabras y caracteres en ese archivo, en ese orden.
+		
+		wc -l NombreDelCurso 	: Es un contador de líneas de un archivo
+
+		wc -c NombreDelCurso 	: Es un contador de caracteres de un archivo
+
+	-Documentacion disponible desde la terminal:
+
+		man		:Si usamos el comando man seguido del nombre del comando del cual que queremos saber más, tenemos como resultado una documentación bastante detallada junto con todas sus banderas disponibles y ejemplos de uso. Man no depende de internet y muy útil para descubrir nuevos comandos.
+
+		/	:A veces las paginas man son bastante largas, si sabemos lo que nececitamos mirar, una vez abierto el manual se puede usar el caracter / para realizar busquedas. tambien tenga en cuenta que las busquedas aceptan expreciones regulares.
+
+	
+	-Monitoreo de procesos desde la terminal:
+
+		echo $PATH 	:La arquitectura de un sistema operativo Linux / *Nix nos permite identificar en qué carpeta se encuentran todos esos comandos ejecutables que hemos estado usando
+
+
+		which comando	:Además con which NombreDelComando, podemos obtener el directorio donde ese comando en especifico es ejecutado. 		Ejemplo:
+
+			which cat
+
+		top 	: Es un comando que nos permite saber, segundo a segundo, que procesos están corriendo en nuestro ordenador.
+
+		PID (Process ID) 	: es un identificador numérico que se le asigna a cada proceso que se está ejecutando en nuestro ordenador.
+
+			Para saber ese PID, en nuestro proceso, agregamos un &.
+
+			Teniendo ese PID, podemos matar ese proceso con el comando:
+
+			kill -9 PID
+
+		ps -wA		:Volviendo a los procesos, existe una forma de identificar los procesos que se han estado ejecutando.
+
+	-Standard Input, Standard Output y Standard Error:
+
+		bc -q < operaciones.bc > resultado 	:De un archivo llamado operaciones.bc, abrelo usando bc, y el resultado, mandalo a resultado
+
+			EJEMPLO CLARO:
+
+		Bc < cálculos 1>res 2>errores
+			   	      * (el 1 es opcional, estándar output)
+					        *  (el 2 indica la salida esntandar error)
+
+
+
+
+
+	-Busqueda de contenido, archivos, carpetas y uso de Grep:
+
+		cat Archivo | grep TerminoDeBusqueda 	:Estamos leyendo todo el archivo, y por medio de grep, solo filtramos lo resultados de acuerdo al Término de Búsqueda
+
+		cat Archivo | grep ,TerminoDeBusqueda$ 	:Para ser más concretos con la búsqueda, podemos usar expresiones regulares
+
+		cat Archivo | grep ,TerminoDeBusqueda$ > mi_archivo 	:Y recordando el standard output, podemos mandarlo a un archivo de texto
+
+
+	-
+
+
+	-Peticiones HTTP desde la terminal con curl:
+
+		curl http://www.google.com/ -k
+
+		curl -k -# -o google_prueba_curl.html http://www.google.com/
+
+			-# 	:barra de proceso
+			-o 	:archivo a guardar
+			-k 	:sin modo seguro 
+
+
+
+
+
+
+
+	-Interfaces de red:
+
+		ifconfig 	: para habilitar el dispositivo inalámbrico (wireless).
+
+		iwlist 		: para listar todos los puntos de acceso detectados.
+
+		iwconfig 	: para configurar la conexión inalámbrica.
+
+			iwconfig 	: muestra la informacion de la interfaz de red y el ESSID a la que esta conectada y con su protocolo de red
+
+				(misma funcion [pero no me funciono])
+
+					iwgetid provides the ssid
+
+					iwgetid -r gives just the name.
+
+				(misma funciono mas detallada [funciono])
+
+					iw dev wlan0 info
+
+						ifindex:
+						wdev:
+						addr:
+						ssid:
+						type:
+						wiphy:
+						channel:
+						txpower:
+
+		dhclient 	: para asignarle a nuestra compu una dirección IP a través de DHCP.
+
+			sudo ifconfig wlan0 up 	: habilitar la interfaz de red
+
+			iwlist wlan0 scan 	: escanear los puntos de acceso a internet
+
+			sudo iwconfig wlan0 essid ESSID key CONTRASEÑA 	: configurar la conexion
+
+			Nota: iwconfig maneja contraseñas en formato hexadecimal. En caso de que quieras ingresar una contraseña ascii, utilizá el prefijo “s:”.
+
+				sudo iwconfig wlan0 essid ESSID key s:CONTRASEÑA
+
+			Una vez que ya está lista la configuración del dispositivo, es hora de obtener nuestro IP (es recomendable hacer la configuracion de la red en una sola linea de comando, ya que la configuracion de los modems tienen un timer para recibir la peticion DHCP; de esta forma:
+
+				sudo iwconfig wlan0 essid ESSID key CONTRASEÑA; dhclient wlan0
+
+			):
+
+				sudo dhclient wlan0
+
+				sudo /etc/init.d/networking restart
+
+				Ó
+
+				sudo shutdown -r now (reinicia las conf's)
+
+				[[[https://www.cyberciti.biz/faq/linux-restart-network-interface/]]]
+
+				script:
+
+				#! /bin/bash
+				ifconfig wlan0 up
+				iwconfig wlan0 essid ESSID key CONTRASEÑA
+				dhclient wlan0
+
+				chmod u+x wireless_up.sh
+
+			Para que sea un script global (que podés ejecutar desde cualquier lado) colocalo en /usr/local/bin. Finalmente, ejecutá el comando wireless_up.sh desde donde te plazca y dejá que el script haga su magia.
+
+			Coneccion de red por archivo:::
+
+			sudo nano /etc/network/interfaces
+
+				source-directory /etc/network/interfaces.d
+
+				auto lo
+				iface lo inet loopback
+
+				auto eth0
+				iface eth0 inet dhcp
+
+				auto wlan0
+				#wpa-config /etc/wpa_supplicant/wpa_supplicant.conf
+
+				iface wlan0 inet dhcp
+					wpa-ssid "SSID"
+					wpa-psk "PASSWORD"
+
